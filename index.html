@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>平面設計師作品集</title>
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Noto Sans TC',sans-serif;
+    background:#f5f5f5;
+    color:#222;
+    line-height:1.6;
+}
+
+/* ===== Hero ===== */
+
+.hero{
+    width:100%;
+    min-height:100vh;
+    background:linear-gradient(135deg,#111,#444);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+    padding:40px 20px;
+}
+
+.hero-content{
+    max-width:700px;
+}
+
+.avatar{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    object-fit:cover;
+    border:6px solid rgba(255,255,255,.2);
+    margin-bottom:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.hero h1{
+    font-size:56px;
+    margin-bottom:10px;
+    letter-spacing:2px;
+}
+
+.hero p{
+    font-size:18px;
+    opacity:.9;
+    margin-bottom:30px;
+}
+
+.hero-btn{
+    display:inline-block;
+    padding:14px 36px;
+    background:white;
+    color:#111;
+    text-decoration:none;
+    border-radius:50px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.hero-btn:hover{
+    background:#ffcc00;
+    transform:translateY(-3px);
+}
+
+a{
+color: #ffffff;text-decoration: none;
+
+}
+a:hover{
+color: #00a085;
+
+}
+
+/* ===== Portfolio ===== */
+
+.portfolio{
+    max-width:1200px;
+    margin:auto;
+    padding:100px 20px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:60px;
+    position:relative;
+}
+
+.section-title::after{
+    content:'';
+    width:100px;
+    height:4px;
+    background:#111;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:-15px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.gallery-item{
+    position:relative;
+    overflow:hidden;
+    border-radius:20px;
+    cursor:pointer;
+    background:white;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.gallery-item img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    display:block;
+    transition:.5s;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.08);
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-size:22px;
+    opacity:0;
+    transition:.4s;
+}
+
+.gallery-item:hover .overlay{
+    opacity:1;
+}
+
+/* ===== Lightbox ===== */
+
+.lightbox{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.92);
+    z-index:999;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.lightbox img{
+    max-width:90%;
+    max-height:90vh;
+    border-radius:15px;
+    box-shadow:0 0 30px rgba(255,255,255,.15);
+}
+
+.close{
+    position:absolute;
+    top:30px;
+    right:40px;
+    color:white;
+    font-size:50px;
+    cursor:pointer;
+}
+
+/* ===== About ===== */
+
+.about{
+    background:white;
+    padding:100px 20px;
+}
+
+.about-wrap{
+    max-width:1000px;
+    margin:auto;
+    display:flex;
+    gap:50px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.about img{
+    width:320px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.about-text{
+    flex:1;
+}
+
+.about-text h2{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.about-text p{
+    font-size:18px;
+    color:#555;
+}
+  /* 圖片容器 */
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    /* --- 縮圖樣式 --- */
+    .lightbox-trigger {
+      width: 250px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    /* 滑鼠移上去時的提示效果 */
+    .lightbox-trigger:hover {
+      transform: scale(1.03);
+      opacity: 0.9;
+    }
+
+    /* --- 黑底放大遮罩層 (Lightbox Overlay) --- */
+    .modal-overlay {
+      display: none; /* 預設隱藏 */
+      position: fixed;
+      z-index: 9999; /* 確保在最上層 */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85); /* 黑色背景，透明度 85% */
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* 當遮罩被激活時 */
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* 放大後的圖片 */
+    .modal-img {
+      max-width: 85%;
+      max-height: 85%;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.active .modal-img {
+      transform: scale(1); /* 彈出放大動畫 */
+    }
+
+    /* 關閉按鈕 (右上角 X) */
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .close-btn:hover {
+      color: #ccc;
+    }
+    
+    /* 當打開放大圖時，鎖定網頁主體的滾動條 */
+    body.modal-open {
+      overflow: hidden;
+    }
+
+/* ===== Footer ===== */
+
+footer{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:30px;
+    font-size:15px;
+}
+
+/* ===== Responsive ===== */
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .section-title{
+        font-size:32px;
+    }
+
+    .about-wrap{
+        flex-direction:column;
+        text-align:center;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-content">
+        <img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800" alt="">
+        <h1>MARK DESIGN</h1>
+        <p >
+            <a href="#mark-1">包裝結構與視覺</a> ｜ <a href="#mark-2">社群媒體視覺</a>｜ <a href="#mark-3">商業攝影</a> ｜<a href="#mark-4">影片剪輯</a>
+        </p>
+
+        <a href="#portfolio" class="hero-btn">
+            查看作品
+        </a>
+    </div>
+</section>
+
+<!-- Portfolio -->
+<!-- Portfolio -->
+<section class="portfolio">
+
+    <h2 id="mark-1" class="section-title">包裝結構與視覺</h2>
+
+  
+  
+  <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=1" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=2" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=3" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=4" alt="範例圖片3">
+  </div>
+    <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=5" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=6" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=7" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=8" alt="範例圖片3">
+  </div>
+    <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=9" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=10" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=11" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=12" alt="範例圖片3">
+  </div>
+<br><br><br>
+   <h2 id="mark-2" class="section-title">社群媒體視覺</h2>
+
+  <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=13" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=14" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=15" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=16" alt="範例圖片3">
+  </div>
+    <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=17" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=18" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=19" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=20" alt="範例圖片3">
+  </div>
+    <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=21" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=22" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=23" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=24" alt="範例圖片3">
+  </div>
+  <br><br><br>
+  <h2 id="mark-3" class="section-title">商業攝影</h2>
+
+  <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=13" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=14" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=15" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=16" alt="範例圖片3">
+  </div>
+    <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=17" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=18" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=19" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=20" alt="範例圖片3">
+  </div>
+    <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=21" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=22" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=23" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=24" alt="範例圖片3">
+  </div>
+  <br><br><br>
+  <h2  id="mark-4"class="section-title">影片剪輯</h2>
+
+  <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=13" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=14" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=15" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=16" alt="範例圖片3">
+  </div>
+    <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=17" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=18" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=19" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=20" alt="範例圖片3">
+  </div>
+    <div class="gallery">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=21" alt="範例圖片1">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=22" alt="範例圖片2">
+    <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=23" alt="範例圖片3">
+      <img class="lightbox-trigger" src="https://picsum.photos/800/600?random=24" alt="範例圖片3">
+  </div>
+  <div id="imageModal" class="modal-overlay">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <img class="modal-img" id="modalTargetImg" src="" alt="放大圖">
+  </div>
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const triggers = document.querySelectorAll('.lightbox-trigger');
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalTargetImg');
+      const closeBtn = document.getElementById('closeModal');
+
+      // 打開遮罩的函式
+      function openModal(imgSrc) {
+        modalImg.src = imgSrc;
+        modal.classList.add('active');
+        document.body.classList.add('modal-open'); // 鎖定網頁滾動
+      }
+
+      // 關閉遮罩的函式
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.classList.remove('modal-open'); // 解除鎖定滾動
+        // 稍微延遲清空路徑，避免關閉動畫時圖片瞬間消失
+        setTimeout(() => { modalImg.src = ''; }, 300);
+      }
+
+      // 1. 為所有設定了 class 的圖片綁定點擊事件
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+          openModal(this.src);
+        });
+      });
+
+      // 2. 點擊 X 按鈕關閉
+      closeBtn.addEventListener('click', closeModal);
+
+      // 3. 點擊黑底任何地方（除了圖片本身）也能關閉
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      // 4. 按下鍵盤 Esc 鍵也能關閉（加分體驗）
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          closeModal();
+        }
+      });
+    });
+  </script>
+</section>
+
+<!-- About -->
+<section class="about">
+
+    <div class="about-wrap">
+
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800" alt="">
+
+        <div class="about-text">
+            <h2>關於我</h2>
+
+            <p>
+                我是一位專注於品牌視覺與平面設計的創作者，
+                擅長結合美感與商業策略，打造具有辨識度的設計作品。
+                包含品牌設計、社群視覺、網站UI、廣告海報與包裝設計。
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Footer -->
+<footer>
+    © 2026 MARK DESIGN ALL RIGHTS RESERVED
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox">
+    <span class="close">&times;</span>
+    <img src="" alt="">
+</div>
+
+<script>
+
+$(document).ready(function(){
+
+    // 點作品放大
+    $('.gallery-item img').click(function(){
+
+        let imgSrc = $(this).attr('src');
+
+        $('.lightbox img').attr('src', imgSrc);
+
+        $('.lightbox').fadeIn();
+
+    });
+
+    // 關閉燈箱
+    $('.close, .lightbox').click(function(e){
+
+        if(
+            e.target !== $('.lightbox img')[0]
+        ){
+            $('.lightbox').fadeOut();
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
