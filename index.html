@@ -306,7 +306,39 @@ color: #fff1a1;
     body.modal-open {
       overflow: hidden;
     }
+#rightBar {
 
+    z-index: 9999;
+
+    width: 50px;
+
+    position: fixed;
+
+    right: 10px;
+
+    bottom: 5%;
+
+    height: auto;
+
+}
+
+#rightBar .btn {
+
+    width: 50px;
+
+    height: 50px;
+
+    text-align: center;
+
+    line-height: 20px;
+
+    display: inline-block;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+}
 /* ===== Footer ===== */
 
 footer{
@@ -346,7 +378,7 @@ footer{
         <img class="avatar" src="11.jpg" alt="">
         <h1>MARK DESIGN</h1>
         <p >
-            <a href="#mark-1">視覺與包裝</a> ｜ <a href="#mark-2">社群媒體視覺</a>｜ <a href="#mark-3">商業攝影</a> ｜<a href="#mark-4">影片剪輯</a>
+            <a href="#mark-1">視覺與包裝</a> ｜ <a href="#mark-2">社群媒體視覺</a>｜ <a href="#mark-3">商業攝影</a> ｜<a href="#mark-4">影片剪輯</a>｜<a href="#mark-5">關於我</a>
         </p>
 
         <a href="#portfolio" class="hero-btn">
@@ -487,7 +519,7 @@ footer{
         <img src="img/22.jpg" alt="">
 
         <div class="about-text">
-            <h2>關於我</h2>
+            <h2 id="mark-5">關於我</h2>
 
             <p>
                 『積極樂觀、努力不懈』的工作態度。對我而言，設計不只是漂亮的畫面，
@@ -500,7 +532,15 @@ footer{
     </div>
 
 </section>
+<div id="rightBar">
 
+<div class="btn" id="shougongBtn"><span><a href=
+
+"javascript:%20window.scrollTo(0,%200);"><img src="https://hosting.url.com.tw/img/go-top.png" /></a></span></div>
+
+</div>
+
+:<!-- 網頁捲軸移動至頂語法 結束 -->
 <!-- Footer -->
 <footer>
     © 2026 MARK DESIGN ALL RIGHTS RESERVED
